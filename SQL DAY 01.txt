@@ -1,0 +1,199 @@
+SQL DAY 01:
+To check all databases in your server
+
+sy: show databases;
+
+SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| cap                |
+| car                |
+| emp                |
+| information_schema |
+| mango              |
+| myschema           |
+| mysql              |
+| pen                |
+| pencil             |
+| performance_schema |
+| phone              |
+| product            |
+| sys                |
++--------------------+
+13 rows in set (0.06 sec)
+
+TO CREATE A NEW DATABASE
+SY: CREATE DATABASE DATABASE_NAME;
+
+CREATE DATABASE LAPTOP;
+Query OK, 1 row affected (0.42 sec)
+
+CREATE A TABLE
+TO CREATE A TABLE, WE NEED TO SELECT THE DATABASE WHICH WE WANT TO CREATE TABLE IN
+
+SY: USE DATABASE_NAME;
+
+ USE LAPTOP;
+Database changed
+
+SY: CREATE TABLE TABLE_NAME(COL1 DATATYPE, COL2 DATATYPE, COL3 DATATYPE....COLN DATATYPE);
+
+CREATE TABLE STUDENT(SNO INT, SNAME VARCHAR(20), AGE INT, LOCATION VARCHAR(30));
+Query OK, 0 rows affected (1.35 sec)
+
+CHECK THE COLUMNS CREATED IN THE TABLE
+SY: DESCRIBE OR DESC TABLE_NAME;
+
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SNO      | int         | YES  |     | NULL    |       |
+| SNAME    | varchar(20) | YES  |     | NULL    |       |
+| AGE      | int         | YES  |     | NULL    |       |
+| LOCATION | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
+
+DDL ---> DATA DEFINITION LANGUAGE
+
+DDL is a set of SQL commands used to create, modify, and delete database structures but not data.
+These commands are normally not used by a general user, who should be accessing the database via an application.
+
+
+ALTER TABLE - ALTER THE STRUCTURE OF THE DATABASE TABLE BY THE FOLLOWING OPERATIONS:
+1. ALTER WITH ADD
+2. ALTER WITH RENAME
+3. ALTER WITH MODIFY
+4. ALTER WITH DROP
+
+1. ALTER WITH ADD: AT THE END BY DEFAULT
+Adding a new column to the existing table
+SY: ALTER TABLE TABLE_NAME ADD COLUMN COLUMN_NAME DATATYPE;
+
+ALTER TABLE STUDENT ADD COLUMN EMAIL VARCHAR(30);
+Query OK, 0 rows affected (2.54 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SNO      | int         | YES  |     | NULL    |       |
+| SNAME    | varchar(20) | YES  |     | NULL    |       |
+| AGE      | int         | YES  |     | NULL    |       |
+| LOCATION | varchar(30) | YES  |     | NULL    |       |
+| EMAIL    | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+ADDING A NEW COLUMN AFTER A SPECIFIED COLUMN
+SY: ALTER TABLE TABLE_NAME ADD COLUMN NEW_COLUMN_NAME DATATYPE AFTER COLUMN_NAME;
+
+ALTER TABLE STUDENT ADD COLUMN PHONE INT AFTER SNAME;
+Query OK, 0 rows affected (1.73 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SNO      | int         | YES  |     | NULL    |       |
+| SNAME    | varchar(20) | YES  |     | NULL    |       |
+| PHONE    | int         | YES  |     | NULL    |       |
+| AGE      | int         | YES  |     | NULL    |       |
+| LOCATION | varchar(30) | YES  |     | NULL    |       |
+| EMAIL    | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+ADDING A NEW COLUMN AT THE BEGINNING OF THE TABLE OR THE FIRST
+
+SY: ALTER TABLE TABLE_NAME ADD COLUMN COLUMN_NAME DATATYPE FIRST;
+
+ALTER TABLE STUDENT ADD COLUMN PASSID INT FIRST;
+Query OK, 0 rows affected (1.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| PASSID   | int         | YES  |     | NULL    |       |
+| SNO      | int         | YES  |     | NULL    |       |
+| SNAME    | varchar(20) | YES  |     | NULL    |       |
+| PHONE    | int         | YES  |     | NULL    |       |
+| AGE      | int         | YES  |     | NULL    |       |
+| LOCATION | varchar(30) | YES  |     | NULL    |       |
+| EMAIL    | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+2. ALTER TABLE WITH RENAME
+SY: ALTER TABLE TABLE_NAME RENAME COLUMN OLD_COLUMN TO NEW_COLUMN;
+
+ALTER TABLE STUDENT RENAME COLUMN LOCATION TO ADDRESS;
+Query OK, 0 rows affected (0.58 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| PASSID  | int         | YES  |     | NULL    |       |
+| SNO     | int         | YES  |     | NULL    |       |
+| SNAME   | varchar(20) | YES  |     | NULL    |       |
+| PHONE   | int         | YES  |     | NULL    |       |
+| AGE     | int         | YES  |     | NULL    |       |
+| ADDRESS | varchar(30) | YES  |     | NULL    |       |
+| EMAIL   | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+3. ALTER TABLE WITH MODIFY: WE CAN MODIFY OR CHANGE DATATYPE OR SIZE OF THE COLUMN;
+SY: ALTER TABLE TABLE_NAME MODIFY COLUMN_NAME SIZE/DATATYPE;
+
+
+ALTER TABLE STUDENT MODIFY ADDRESS VARCHAR(50);
+Query OK, 0 rows affected (0.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| PASSID  | int         | YES  |     | NULL    |       |
+| SNO     | int         | YES  |     | NULL    |       |
+| SNAME   | varchar(20) | YES  |     | NULL    |       |
+| PHONE   | int         | YES  |     | NULL    |       |
+| AGE     | int         | YES  |     | NULL    |       |
+| ADDRESS | varchar(50) | YES  |     | NULL    |       |
+| EMAIL   | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENT MODIFY PASSID VARCHAR(20);
+Query OK, 0 rows affected (2.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| PASSID  | varchar(20) | YES  |     | NULL    |       |
+| SNO     | int         | YES  |     | NULL    |       |
+| SNAME   | varchar(20) | YES  |     | NULL    |       |
+| PHONE   | int         | YES  |     | NULL    |       |
+| AGE     | int         | YES  |     | NULL    |       |
+| ADDRESS | varchar(50) | YES  |     | NULL    |       |
+| EMAIL   | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
