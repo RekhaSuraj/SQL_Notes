@@ -1,0 +1,247 @@
+SQL Day 02:
+
+ALTER TABLE WITH DROP: REMOVES A COLUMN FROM THE TABLE
+
+SY: ALTER TABLE TABLE_NAME DROP COLUMN_NAME;
+ALTER TABLE STUDENT DROP EMAIL;
+Query OK, 0 rows affected (2.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| PASSID  | varchar(20) | YES  |     | NULL    |       |
+| SNO     | int         | YES  |     | NULL    |       |
+| SNAME   | varchar(20) | YES  |     | NULL    |       |
+| PHONE   | int         | YES  |     | NULL    |       |
+| AGE     | int         | YES  |     | NULL    |       |
+| ADDRESS | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+RENAME TABLE:
+SY: RENAME TABLE OLD_TABLE_NAME TO NEW_TABLE_NAME;
+
+RENAME TABLE STUDENT TO STU;
+Query OK, 0 rows affected (0.75 sec)
+
+mysql> DESC STUDENT;
+ERROR 1146 (42S02): Table 'laptop.student' doesn't exist
+mysql> DESC STU;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| PASSID  | varchar(20) | YES  |     | NULL    |       |
+| SNO     | int         | YES  |     | NULL    |       |
+| SNAME   | varchar(20) | YES  |     | NULL    |       |
+| PHONE   | int         | YES  |     | NULL    |       |
+| AGE     | int         | YES  |     | NULL    |       |
+| ADDRESS | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+DROP: DELETE OBJECTS FROM THE DATABASE
+DELETE TABLE:
+
+SY: DROP TABLE TABLE_NAME;
+DROP TABLE STU;
+Query OK, 0 rows affected (1.13 sec)
+
+mysql> DESC STU;
+ERROR 1146 (42S02): Table 'laptop.stu' doesn't exist
+
+DELETE DATABASE:
+SY: DROP DATABASE DATABASE_NAME;
+
+DROP DATABASE LAPTOP;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> USE LAPTOP;
+ERROR 1049 (42000): Unknown database 'laptop'
+
+
+DML (DATA MANIPULATION LANGUAGE):
+
+Insert : The INSERT INTO statement in SQL is used to add new records to a table in a database. 
+It is a fundamental command for data insertion and is used to insert new data into tables.
+
+
+1). SY : INSERT INTO TABLE_NAME(COL1,COL2,COL3......) VALUES(VALUE1,VALUE2,VALUE3.......)
+    EXAMPLE : INSERT INTO EMP(SNO, ENAME,EID, ESALARY, ELOCATION, EDEP_ID, CONTACT, DEP_NAME) VALUES(12,'PRAMOD',99,40000,'MEXICO', 40, 789654356, 'NETWORKING');  
+
+USE PEN;
+Database changed
+mysql> INSERT INTO EMP(SNO, ENAME,EID, ESALARY, ELOCATION, EDEP_ID, CONTACT, DEP_NAME) VALUES(12,'PRAMOD',99,40000,'MEXICO', 40, 789654356, 'NETWORKING');
+Query OK, 1 row affected (0.12 sec)
+
+SELECT * FROM TABLE_NAME: FETCHES ALL THE COLUMN RECORDS FROM THE TABLE
+
+mysql> SELECT * FROM EMP;
++------+---------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME   | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+---------+-------+---------+-----------+---------+-----------+------------+
+|    1 | Rama    |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama    |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    4 | Amar    | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    5 | Seetha  |   123 |   20000 | US        |      22 | 966543210 | HR         |
+|    6 | Lucky   |   456 |   50000 | UK        |      11 |  76977689 | HR         |
+|    7 | Seetha  |   789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|    9 | Joe     |   345 |   30000 | AP        |      40 |  78723289 | Networking |
+|   10 | Rose    |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD  |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
++------+---------+-------+---------+-----------+---------+-----------+------------+
+10 rows in set (0.00 sec)
+
+
+INSERT MORE THAN ONE RECORD:
+
+2).SY: INSERT INTO TABLE_NAME VALUES(13,'KATYAYANI',100,100000,'UP',201,67732352,'IT'),(14,'VIDYABHUSHAN',101,100000,'',201,72352352,'IT')
+INSERT INTO EMP VALUES(13,'KATYAYANI',100,100000,'UP',201,67732352,'IT'),(14,'VIDYABHUSHAN',101,100000,'',201,72352352,'IT')
+
+INSERT INTO EMP VALUES(13,'KATYAYANI',100,100000,'UP',201,67732352,'IT'),(14,'VIDYABHUSHAN',101,100000,'',201,72352352,'IT');
+Query OK, 2 rows affected (0.13 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    5 | Seetha       |   123 |   20000 | US        |      22 | 966543210 | HR         |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR         |
+|    7 | Seetha       |   789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|    9 | Joe          |   345 |   30000 | AP        |      40 |  78723289 | Networking |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath      |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD       |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT         |
+|   14 | VIDYABHUSHAN |   101 |  100000 |           |     201 |  72352352 | IT         |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+12 rows in set (0.00 sec)
+
+UPDATE TABLE:
+SY: UPDATE TABLE_NAME SET COLUMN_NAME = NEW_VALUE WHERE CONDITION ;
+
+UPDATE EMP SET ELOCATION = 'UP' WHERE SNO= 14;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    5 | Seetha       |   123 |   20000 | US        |      22 | 966543210 | HR         |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR         |
+|    7 | Seetha       |   789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|    9 | Joe          |   345 |   30000 | AP        |      40 |  78723289 | Networking |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath      |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD       |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT         |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT         |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+12 rows in set (0.00 sec)
+
+DELETE: DELETE RECORD FROM THE TABLE
+
+SY: DELETE FROM TABLE_NAME WHERE CONDITION;
+
+DELETE FROM EMP WHERE SNO = 9;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> SELECT * FROM EMP;
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    5 | Seetha       |   123 |   20000 | US        |      22 | 966543210 | HR         |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR         |
+|    7 | Seetha       |   789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath      |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD       |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT         |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT         |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+11 rows in set (0.00 sec)
+
+
+
+DQL (DATA QUERY LANGUAGE)
+THERE ARE TWO CLAUSES HERE :
+1. SELECT, 2.SELECT DISTINCT
+SY : SELECT * FROM TABLE_NAME;    (' * '  MEANS ALL)
+EX : SELECT * FROM EMP;
+
+SELECT ONLY A FEW COLUMNS FROM THE TABLE:
+SY: SELECT COLUMN_NAME1, COLUMN_NAME2 FROM TABLE_NAME;
+
+SELECT ENAME, ELOCATION FROM EMP;
++--------------+-----------+
+| ENAME        | ELOCATION |
++--------------+-----------+
+| Rama         | India     |
+| Rama         | India     |
+| Amar         | Mysore    |
+| Seetha       | US        |
+| Lucky        | UK        |
+| Seetha       | Blr       |
+| Rose         | MP        |
+| Bharath      | Delhi     |
+| PRAMOD       | MEXICO    |
+| KATYAYANI    | UP        |
+| VIDYABHUSHAN | UP        |
++--------------+-----------+
+11 rows in set (0.00 sec)
+
+LIMIT: SELECTS ONLY THOSE NUMBER OF RECORDS:
+SY: SELECT * FROM TABLE_NAME LIMIT 5;
+
+SELECT * FROM EMP LIMIT 5;
++------+--------+-------+---------+-----------+---------+-----------+----------+
+| SNO  | ENAME  | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME |
++------+--------+-------+---------+-----------+---------+-----------+----------+
+|    1 | Rama   |   101 |    1000 | India     |     201 | 896579972 | IT       |
+|    1 | Rama   |   101 |    1000 | India     |     201 | 896579972 | IT       |
+|    4 | Amar   | 12345 |   50000 | Mysore    |      20 | 965543210 | IT       |
+|    5 | Seetha |   123 |   20000 | US        |      22 | 966543210 | HR       |
+|    6 | Lucky  |   456 |   50000 | UK        |      11 |  76977689 | HR       |
++------+--------+-------+---------+-----------+---------+-----------+----------+
+5 rows in set (0.00 sec)
+
+
+DISTINCT: SELECT UNIQUE RECORDS FROM THE TABLE(NO DUPLICATES)
+SY: SELECT DISTINCT COLUMN_NAME FROM TABLE_NAME;
+
+ SELECT DISTINCT EDEP_ID FROM EMP;
++---------+
+| EDEP_ID |
++---------+
+|     201 |
+|      20 |
+|      22 |
+|      11 |
+|      10 |
+|      40 |
++---------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
