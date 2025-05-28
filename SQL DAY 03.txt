@@ -1,0 +1,388 @@
+Filters - Comparison operators (>,<,=,>=,<=,!=)
+
+GREATER THAN:
+QUESTION:DISPLAY NAMES OF EMPYOYEES WHOSE SALARY IS GREATER THAN 20000
+
+SY: SELECT * FROM TABLE_NAME WHERE COLUMN_NAME > CONDITION;
+
+SELECT * FROM EMP WHERE ESALARY > 20000;
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR         |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath      |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD       |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT         |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT         |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+7 rows in set (0.00 sec)
+
+DISPLAY NAMES AND THEIR SALARIES WHICH IS GREATER THAN 20000
+SELECT ENAME,ESALARY FROM EMP WHERE ESALARY > 20000;
++--------------+---------+
+| ENAME        | ESALARY |
++--------------+---------+
+| Amar         |   50000 |
+| Lucky        |   50000 |
+| Rose         |   35000 |
+| Bharath      |   25000 |
+| PRAMOD       |   40000 |
+| KATYAYANI    |  100000 |
+| VIDYABHUSHAN |  100000 |
++--------------+---------+
+7 rows in set (0.00 sec)
+
+
+DISPLAY NAMES OF EMPLOYEES WHOSE EID IS GREATER THAN 100
+
+SELECT * FROM EMP WHERE EID > 100;
++------+--------------+-------+---------+-----------+---------+-----------+----------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME |
++------+--------------+-------+---------+-----------+---------+-----------+----------+
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT       |
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT       |
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT       |
+|    5 | Seetha       |   123 |   20000 | US        |      22 | 966543210 | HR       |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR       |
+|    7 | Seetha       |   789 |   20000 | Blr       |      10 |  35346363 | Sales    |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales    |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT       |
++------+--------------+-------+---------+-----------+---------+-----------+----------+
+8 rows in set (0.00 sec)
+
+--------------------------------------------------------------------------------------------------------------------------------------
+LESSER THAN (<)
+
+QUESTION: DISPLAY EMPLOYEES WHOSE SALARY IS LESSER THAN 20000
+SY: SELECT * FROM TABLE_NAME WHERE COLUMN_NAME < CONDITION;
+
+SELECT * FROM EMP WHERE ESALARY < 20000;
++------+-------+------+---------+-----------+---------+-----------+----------+
+| SNO  | ENAME | EID  | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME |
++------+-------+------+---------+-----------+---------+-----------+----------+
+|    1 | Rama  |  101 |    1000 | India     |     201 | 896579972 | IT       |
+|    1 | Rama  |  101 |    1000 | India     |     201 | 896579972 | IT       |
++------+-------+------+---------+-----------+---------+-----------+----------+
+2 rows in set (0.00 sec)
+
+ SELECT * FROM EMP WHERE EDEP_ID < 100;
++------+---------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME   | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+---------+-------+---------+-----------+---------+-----------+------------+
+|    4 | Amar    | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    5 | Seetha  |   123 |   20000 | US        |      22 | 966543210 | HR         |
+|    6 | Lucky   |   456 |   50000 | UK        |      11 |  76977689 | HR         |
+|    7 | Seetha  |   789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|   10 | Rose    |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD  |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
++------+---------+-------+---------+-----------+---------+-----------+------------+
+7 rows in set (0.00 sec)
+
+------------------------------------------------------------------------------------------------------------------------------------
+EQUAL TO (=)
+QUESTION: DISPLAY EMPLOYEES WHOSE SALARY IS 20000
+
+SY: SELECT * FROM TABLE_NAME WHERE COLUMN_NAME = CONDITION;
+
+SELECT * FROM EMP WHERE ESALARY = 20000;
++------+--------+------+---------+-----------+---------+-----------+----------+
+| SNO  | ENAME  | EID  | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME |
++------+--------+------+---------+-----------+---------+-----------+----------+
+|    5 | Seetha |  123 |   20000 | US        |      22 | 966543210 | HR       |
+|    7 | Seetha |  789 |   20000 | Blr       |      10 |  35346363 | Sales    |
++------+--------+------+---------+-----------+---------+-----------+----------+
+2 rows in set (0.00 sec)
+
+SELECT ENAME, EID FROM EMP WHERE EID = 99;
++--------+------+
+| ENAME  | EID  |
++--------+------+
+| PRAMOD |   99 |
++--------+------+
+1 row in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------------------------------------------
+GREATER THAN OR EQUAL TO(>=)
+
+SY: SELECT * FROM TABLE_NAME WHERE COLUMN_NAME >= CONDITION;
+
+ SELECT * FROM EMP WHERE ESALARY >= 20000;
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    5 | Seetha       |   123 |   20000 | US        |      22 | 966543210 | HR         |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR         |
+|    7 | Seetha       |   789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath      |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD       |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT         |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT         |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+9 rows in set (0.00 sec)
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+LESSER THAN OR EQUAL TO(<=)
+
+SY: SELECT * FROM TABLE_NAME WHERE COLUMN_NAME <= CONDITION;
+SELECT * FROM EMP WHERE ESALARY <= 35000;
++------+---------+------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME   | EID  | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+---------+------+---------+-----------+---------+-----------+------------+
+|    1 | Rama    |  101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama    |  101 |    1000 | India     |     201 | 896579972 | IT         |
+|    5 | Seetha  |  123 |   20000 | US        |      22 | 966543210 | HR         |
+|    7 | Seetha  |  789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|   10 | Rose    |  450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath |   50 |   25000 | Delhi     |      40 | 876787232 | Networking |
++------+---------+------+---------+-----------+---------+-----------+------------+
+6 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------------------
+NOT EQUAL TO(!= OR <>)
+
+QUESTION: DISPLAY EMPLOYEES WHOSE SALARY IS NOT 20000
+SY: SELECT * FROM TABLE_NAME WHERE COLUMN_NAME != CONDITION;
+
+SELECT * FROM EMP WHERE ESALARY != 20000;
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR         |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath      |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD       |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT         |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT         |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMP WHERE ESALARY <> 20000;
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR         |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath      |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD       |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT         |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT         |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+9 rows in set (0.00 sec)
+
+------------------------------------------------------------------------------------------------------------------------
+RENAME THE COLUMNS FOR DISPLAY:
+
+SELECT ENAME NAME, ESALARY SAL, ELOCATION LOC, EDEP_ID DEPID FROM EMP;
++--------------+--------+--------+-------+
+| NAME         | SAL    | LOC    | DEPID |
++--------------+--------+--------+-------+
+| Rama         |   1000 | India  |   201 |
+| Rama         |   1000 | India  |   201 |
+| Amar         |  50000 | Mysore |    20 |
+| Seetha       |  20000 | US     |    22 |
+| Lucky        |  50000 | UK     |    11 |
+| Seetha       |  20000 | Blr    |    10 |
+| Rose         |  35000 | MP     |    10 |
+| Bharath      |  25000 | Delhi  |    40 |
+| PRAMOD       |  40000 | MEXICO |    40 |
+| KATYAYANI    | 100000 | UP     |   201 |
+| VIDYABHUSHAN | 100000 | UP     |   201 |
++--------------+--------+--------+-------+
+11 rows in set (0.00 sec)
+
+SELECT ENAME AS NAME FROM EMP;
++--------------+
+| NAME         |
++--------------+
+| Rama         |
+| Rama         |
+| Amar         |
+| Seetha       |
+| Lucky        |
+| Seetha       |
+| Rose         |
+| Bharath      |
+| PRAMOD       |
+| KATYAYANI    |
+| VIDYABHUSHAN |
++--------------+
+11 rows in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------------------------------------
+LOGICAL OPERATORS (AND, OR , NOT)
+
+AND , OR OPERATORS ARE USED TO FILTER RECORDS BASED ON ONE OR MORE CONDITION
+
+AND :
+THE AND OPERATORS DISPLAYES RECORDS IF ALL THE CONDITIONS ARE TRUE
+QUESTION: DISPLAY IT EMPLOYEES NAMES WHOSE SALARY IS GREATER THAN 50000
+
+
+ SELECT * FROM EMP WHERE ESALARY > 50000 AND DEP_NAME = 'IT';
++------+--------------+------+---------+-----------+---------+----------+----------+
+| SNO  | ENAME        | EID  | ESALARY | ELOCATION | EDEP_ID | CONTACT  | DEP_NAME |
++------+--------------+------+---------+-----------+---------+----------+----------+
+|   13 | KATYAYANI    |  100 |  100000 | UP        |     201 | 67732352 | IT       |
+|   14 | VIDYABHUSHAN |  101 |  100000 | UP        |     201 | 72352352 | IT       |
++------+--------------+------+---------+-----------+---------+----------+----------+
+2 rows in set (0.00 sec)
+
+ SELECT * FROM EMP WHERE ESALARY < 10000 AND ELOCATION = 'INDIA';
++------+-------+------+---------+-----------+---------+-----------+----------+
+| SNO  | ENAME | EID  | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME |
++------+-------+------+---------+-----------+---------+-----------+----------+
+|    1 | Rama  |  101 |    1000 | India     |     201 | 896579972 | IT       |
+|    1 | Rama  |  101 |    1000 | India     |     201 | 896579972 | IT       |
++------+-------+------+---------+-----------+---------+-----------+----------+
+2 rows in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------------------------------------
+OR OPERATOR 
+OR OPERATOR DISPLAYS RECORDS IF ANY ONE OF THE CONDITION IS TRUE;
+
+
+ SELECT * FROM EMP WHERE ESALARY > 40000 OR DEP_NAME = 'SALES';
++------+--------------+-------+---------+-----------+---------+-----------+----------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME |
++------+--------------+-------+---------+-----------+---------+-----------+----------+
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT       |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR       |
+|    7 | Seetha       |   789 |   20000 | Blr       |      10 |  35346363 | Sales    |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales    |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT       |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT       |
++------+--------------+-------+---------+-----------+---------+-----------+----------+
+6 rows in set (0.00 sec)
+
+---------------------------------------------------------------------------------------------------------------------------
+NOT OPERATOR :
+DISPLAYS RECORD IF THE CONDITION IS NOT TRUE
+
+SELECT * FROM EMP WHERE NOT ENAME = 'LUCKY';
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT         |
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    5 | Seetha       |   123 |   20000 | US        |      22 | 966543210 | HR         |
+|    7 | Seetha       |   789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath      |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD       |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT         |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT         |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+10 rows in set (0.00 sec)
+
+
+SELECT * FROM EMP WHERE NOT(ESALARY > 40000 OR DEP_NAME = 'SALES');
++------+---------+------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME   | EID  | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+---------+------+---------+-----------+---------+-----------+------------+
+|    1 | Rama    |  101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama    |  101 |    1000 | India     |     201 | 896579972 | IT         |
+|    5 | Seetha  |  123 |   20000 | US        |      22 | 966543210 | HR         |
+|   11 | Bharath |   50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD  |   99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
++------+---------+------+---------+-----------+---------+-----------+------------+
+5 rows in set (0.00 sec)
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+IN, BETWEEN OPERATORS:
+
+SELECT * FROM EMP WHERE ESALARY = 1000 OR ESALARY = 20000 OR ESALARY = 40000;
+IN OPEARATOR ALLOWS US TO USE MULTIPLE VALUES IN WHERE CLAUSE
+IT ACTS AS A SHORHAND FOR MULTIPLE OR CONDITIONS
+
+SELECT * FROM EMP WHERE ESALARY = 1000 OR ESALARY = 20000 OR ESALARY = 40000;
++------+--------+------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME  | EID  | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------+------+---------+-----------+---------+-----------+------------+
+|    1 | Rama   |  101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama   |  101 |    1000 | India     |     201 | 896579972 | IT         |
+|    5 | Seetha |  123 |   20000 | US        |      22 | 966543210 | HR         |
+|    7 | Seetha |  789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|   12 | PRAMOD |   99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
++------+--------+------+---------+-----------+---------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMP WHERE ESALARY IN(1000,20000,40000);
++------+--------+------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME  | EID  | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------+------+---------+-----------+---------+-----------+------------+
+|    1 | Rama   |  101 |    1000 | India     |     201 | 896579972 | IT         |
+|    1 | Rama   |  101 |    1000 | India     |     201 | 896579972 | IT         |
+|    5 | Seetha |  123 |   20000 | US        |      22 | 966543210 | HR         |
+|    7 | Seetha |  789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|   12 | PRAMOD |   99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
++------+--------+------+---------+-----------+---------+-----------+------------+
+5 rows in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------------------------------
+NOT IN: OPPOSITE OF IN
+
+
+SELECT * FROM EMP WHERE ESALARY NOT IN(1000,20000,40000);
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT         |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR         |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath      |    50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT         |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT         |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+6 rows in set (0.00 sec)
+
+---------------------------------------------------------------------------------------------------------------------
+BETWEEN: SELECTS VALUES WITHIN A GIVEN RANGE:
+
+IT IS INCLUSIVE OF BEGIN AND END VALUE
+
+SELECT * FROM EMP WHERE ESALARY BETWEEN 10000 AND 40000;
++------+---------+------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME   | EID  | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+---------+------+---------+-----------+---------+-----------+------------+
+|    5 | Seetha  |  123 |   20000 | US        |      22 | 966543210 | HR         |
+|    7 | Seetha  |  789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|   10 | Rose    |  450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath |   50 |   25000 | Delhi     |      40 | 876787232 | Networking |
+|   12 | PRAMOD  |   99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
++------+---------+------+---------+-----------+---------+-----------+------------+
+5 rows in set (0.00 sec)
+
+NOT BETWEEN: OPPOSITE OF BETWEEN:
+
+SELECT * FROM EMP WHERE ESALARY NOT BETWEEN 10000 AND 40000;
++------+--------------+-------+---------+-----------+---------+-----------+----------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME |
++------+--------------+-------+---------+-----------+---------+-----------+----------+
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT       |
+|    1 | Rama         |   101 |    1000 | India     |     201 | 896579972 | IT       |
+|    4 | Amar         | 12345 |   50000 | Mysore    |      20 | 965543210 | IT       |
+|    6 | Lucky        |   456 |   50000 | UK        |      11 |  76977689 | HR       |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT       |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT       |
++------+--------------+-------+---------+-----------+---------+-----------+----------+
+6 rows in set (0.00 sec)
+
+
+
+
+
