@@ -1,0 +1,292 @@
+AGGREGATE FUNCTIONS:
+
+1. AVG 2. SUM 3. MAX 4. MIN 5. COUNT
+
+QUESTION: FIND THE AVERAGE SALARY FROM EMP
+SY: SELECT AVG(COL_NAME) FROM TABLE_NAME;
+
+ SELECT AVG(ESALARY) FROM EMP;
++--------------+
+| AVG(ESALARY) |
++--------------+
+|   44100.0000 |
++--------------+
+1 row in set (0.00 sec)
+
+2. SUM()
+SY: SELECT SUM(COL_NAME) FROM TABLE_NAME;
+
+ SELECT SUM(ESALARY) FROM EMP;
++--------------+
+| SUM(ESALARY) |
++--------------+
+|       441000 |
++--------------+
+1 row in set (0.00 sec)
+
+3. MAX()
+SY: SELECT MAX(COL_NAME) FROM TABEL_NAME;
+
+ SELECT MAX(ESALARY) FROM EMP;
++--------------+
+| MAX(ESALARY) |
++--------------+
+|       100000 |
++--------------+
+1 row in set (0.00 sec)
+
+4. MIN()
+SY: SELECT MIN(COL_NAME) FROM TABLE_NAME;
+SELECT MIN(ESALARY) FROM EMP;
++--------------+
+| MIN(ESALARY) |
++--------------+
+|         1000 |
++--------------+
+1 row in set (0.00 sec)
+
+FIND MAX(), MIN(), SUM(), AVG() FROM TABLE
+
+ SELECT MAX(ESALARY) MAX, MIN(ESALARY) MIN, AVG(ESALARY) AVG, SUM(ESALARY) SUM FROM EMP;
++--------+------+------------+--------+
+| MAX    | MIN  | AVG        | SUM    |
++--------+------+------------+--------+
+| 100000 | 1000 | 44100.0000 | 441000 |
++--------+------+------------+--------+
+
+5. COUNT()
+SY: SELECT COUNT(COL_NAME) FROM TABLE_NAME WHERE CONDITION;
+QUESTION: HOW MANY EMPLOYEES ARE WORKING IN DEP_ID = 201
+
+SELECT COUNT(EDEP_ID) FROM EMP WHERE EDEP_ID = 201;
++----------------+
+| COUNT(EDEP_ID) |
++----------------+
+|              4 |
++----------------+
+1 row in set (0.00 sec)
+
+QUESTION: HOW MANY EMPOLYEES HAVE SALARY 20000
+SELECT COUNT(ESALARY) FROM EMP WHERE ESALARY = 20000;
++----------------+
+| COUNT(ESALARY) |
++----------------+
+|              2 |
++----------------+
+
+============================================================================================================
+
+GROUP BY CLAUSE:
+GROUP BY CLAUSE GROUPS RECORDS INTO SUMMARY ROWS
+
+Q: HOW MANY EMPLOYEES ARE WORKING IN EACH DEP_ID
+SY: SELECT COUNT(COL_NAME), COL_NAME FROM TABLE_NAME GROUP BY COL_NAME
+
+SELECT COUNT(EDEP_ID), EDEP_ID FROM EMP GROUP BY EDEP_ID;
++----------------+---------+
+| COUNT(EDEP_ID) | EDEP_ID |
++----------------+---------+
+|              4 |     201 |
+|              2 |      22 |
+|              2 |      10 |
+|              2 |      40 |
++----------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(DEP_NAME), DEP_NAME FROM EMP GROUP BY DEP_NAME;
++-----------------+------------+
+| COUNT(DEP_NAME) | DEP_NAME   |
++-----------------+------------+
+|               4 | IT         |
+|               2 | HR         |
+|               2 | Sales      |
+|               2 | Networking |
++-----------------+------------+
+4 rows in set (0.00 sec)
+
+
+QUESTION: DISPLAY MAX AND MIN SALARY FOR EACH DEP
+SELECT MAX(ESALARY),MIN(ESALARY),EDEP_ID FROM EMP GROUP BY EDEP_ID;
++--------------+--------------+---------+
+| MAX(ESALARY) | MIN(ESALARY) | EDEP_ID |
++--------------+--------------+---------+
+|       100000 |         1000 |     201 |
+|        50000 |        20000 |      22 |
+|        35000 |        20000 |      10 |
+|        40000 |        25000 |      40 |
++--------------+--------------+---------+
+
+========================================================================================
+HAVING CLAUSE : 
+HAVING CLAUSE ALWAYS FOLLOWS GROUP BY CLAUSE IF WE HAVE TO APPLY SOME CONDITION ON GROUP BY
+
+Q: DISPLAY MAX SALARY FROM EACH DEP WHICH IS GREATER THAN 35000
+SELECT MAX(ESALARY),EDEP_ID FROM EMP GROUP BY EDEP_ID HAVING MAX(ESALARY) > 35000;
++--------------+---------+
+| MAX(ESALARY) | EDEP_ID |
++--------------+---------+
+|       100000 |     201 |
+|        50000 |      22 |
+|        40000 |      40 |
++--------------+---------+
+3 rows in set (0.02 sec)
+
+
+=========================================================================================================
+ORDER BY:
+SY: SELECT COL1, COL2, COL...
+FROM TABLE_NAME
+ORDER BY COL1, COL2....ASC|DESC
+
+SELECT MAX(ESALARY),EDEP_ID FROM EMP GROUP BY EDEP_ID HAVING MAX(ESALARY) > 35000 ORDER BY EDEP_ID ASC;
++--------------+---------+
+| MAX(ESALARY) | EDEP_ID |
++--------------+---------+
+|        50000 |      22 |
+|        40000 |      40 |
+|       100000 |     201 |
++--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT MAX(ESALARY),EDEP_ID FROM EMP GROUP BY EDEP_ID HAVING MAX(ESALARY) > 35000 ORDER BY MAX(ESALARY) ASC;
++--------------+---------+
+| MAX(ESALARY) | EDEP_ID |
++--------------+---------+
+|        40000 |      40 |
+|        50000 |      22 |
+|       100000 |     201 |
++--------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT MAX(ESALARY),EDEP_ID FROM EMP GROUP BY EDEP_ID HAVING MAX(ESALARY) > 35000 ORDER BY MAX(ESALARY) DESC;
++--------------+---------+
+| MAX(ESALARY) | EDEP_ID |
++--------------+---------+
+|       100000 |     201 |
+|        50000 |      22 |
+|        40000 |      40 |
++--------------+---------+
+
+===============================================================================================================
+SOLVE: BELOW IS AN ORDERS TABLE
+
+Q: WHAT IS TOTAL AMOUNT SPENT BY EACH CUSTOMER 
+SELECT * FROM ORDERS;
++----------+-------------+--------+
+| order_id | customer_id | amount |
++----------+-------------+--------+
+|        1 |         101 |    200 |
+|        2 |         102 |    150 |
+|        3 |         101 |    100 |
+|        4 |         103 |    250 |
+|        5 |         102 |    300 |
++----------+-------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT SUM(AMOUNT),CUSTOMER_ID FROM ORDERS GROUP BY CUSTOMER_ID;
++-------------+-------------+
+| SUM(AMOUNT) | CUSTOMER_ID |
++-------------+-------------+
+|         300 |         101 |
+|         450 |         102 |
+|         250 |         103 |
++-------------+-------------+
+3 rows in set (0.00 sec)
+
+STRING FUNCTIONS():
+1. UPPER()
+2. LOWER()
+3. LENGTH()
+4. TRIM()
+5. INSTR()
+6. SUBSTRING()
+
+UPPER() - CONVERTS THE STRING TO UPPERCASE
+ SELECT UPPER('pythondeveloper');
++--------------------------+
+| UPPER('pythondeveloper') |
++--------------------------+
+| PYTHONDEVELOPER          |
++--------------------------+
+1 row in set (0.00 sec)
+
+UPDATE EMP SET ELOCATION = UPPER(ELOCATION) WHERE SNO = 11;
+Query OK, 1 row affected (2.25 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMP;
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+| SNO  | ENAME        | EID   | ESALARY | ELOCATION | EDEP_ID | CONTACT   | DEP_NAME   |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+|    4 | Amar         | 12345 |   50000 | MYSORE    |     201 | 965543210 | IT         |
+|    5 | Seetha       |   123 |   20000 | US        |      22 | 966543210 | HR         |
+|    6 | Lucky        |   456 |   50000 | UK        |      22 |  76977689 | HR         |
+|    7 | Seetha       |   789 |   20000 | Blr       |      10 |  35346363 | Sales      |
+|   10 | Rose         |   450 |   35000 | MP        |      10 | 787239828 | Sales      |
+|   11 | Bharath      |    50 |   25000 | DELHI     |      40 | 876787232 | Networking |
+|   12 | PRAMOD       |    99 |   40000 | MEXICO    |      40 | 789654356 | NETWORKING |
+|   13 | KATYAYANI    |   100 |  100000 | UP        |     201 |  67732352 | IT         |
+|   14 | VIDYABHUSHAN |   101 |  100000 | UP        |     201 |  72352352 | IT         |
+|    1 | RAMA         |   101 |    1000 | INDIA     |     201 |  68767689 | IT         |
++------+--------------+-------+---------+-----------+---------+-----------+------------+
+10 rows in set (0.00 sec)
+
+LOWER() - CONVERTS THE STRING TO LOWERCASE()
+SELECT LOWER('MYSQL');
++----------------+
+| LOWER('MYSQL') |
++----------------+
+| mysql          |
++----------------+
+1 row in set (0.06 sec)
+
+LENGTH() - RETURNS THE LENGTH OF THE STRING
+
+ SELECT LENGTH('HELLO');
++-----------------+
+| LENGTH('HELLO') |
++-----------------+
+|               5 |
++-----------------+
+1 row in set (0.00 sec)
+
+SELECT LENGTH(ENAME),LENGTH(ELOCATION) FROM EMP;
++---------------+-------------------+
+| LENGTH(ENAME) | LENGTH(ELOCATION) |
++---------------+-------------------+
+|             4 |                 6 |
+|             6 |                 2 |
+|             5 |                 2 |
+|             6 |                 3 |
+|             4 |                 2 |
+|             7 |                 5 |
+|             6 |                 6 |
+|             9 |                 2 |
+|            12 |                 2 |
+|             4 |                 5 |
++---------------+-------------------+
+10 rows in set (0.00 sec)
+
+TRIM()
+SELECT TRIM(' MYSQL ');
++-----------------+
+| TRIM(' MYSQL ') |
++-----------------+
+| MYSQL           |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TRIM(' MY SQL ');
++------------------+
+| TRIM(' MY SQL ') |
++------------------+
+| MY SQL           |
++------------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
