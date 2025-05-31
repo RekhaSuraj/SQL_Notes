@@ -1,0 +1,250 @@
+CONSTRAINTS:
+WHAT IS A CONSTRAINT?
+CONSTRAINTS ARE USED TO SPECIFY A RULE THAT ALLOWS OR RESTRICTS WHAT VALUES OR DATA WILL BE STORED IN THE TABLE. THEY PROVIDE A SUITABLE METHOD TO ENSURE DATA ACCURACY AND INTEGRITY INSIDE THE TABLE.
+IF ANY INTERRUPTION OCCURS BETWEEN THE CONSTRAINTS, THE ACTION WOULD FAIL
+
+CONSTRAINT: THERE IS ONE CONDITION/ONE RULE
+
+DATA INTEGRITY: DATA CONTAINED IN THE TABLE IS ACCURATE, CONSISTENT AND RELIABLE. IN MYSQL, THIS IS ENFORCED USING CONSTRAINTS AND RELATIONSHIPS.
+
+1. PRIMARY KEY:
+THE CONSTRAINT IS USED TO IDENTIFY RECORD IN A TABLE UNIQUELY. IF THE COLUMN IS A PRIMARY KEY THEN, IT CANNOT BE NULL OR DUPLICATES. A TABLE CAN CONTAIN ONLY ONE PRIMARY KEY. IT ALWAYS CONTAINS UNIQUE VALUE INTO A COLUMN
+
+SY: CREATE TABLE TABLE_NAME(COL1 DATATYPE PRIMARY KEY, COL2 DATATYPE....)
+
+CREATE TABLE EMP1(EID INT PRIMARY KEY, ENAME VARCHAR(30), EAGE INT);
+Query OK, 0 rows affected (0.58 sec)
+
+mysql> DESC EMP1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| EID   | int         | NO   | PRI | NULL    |       |
+| ENAME | varchar(30) | YES  |     | NULL    |       |
+| EAGE  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+
+ALTER TABLE WITH DROP PRIMARY KEY:
+SY: ALTER TABLE TABLE_NAME DROP PRIMARY KEY;
+
+ALTER TABLE EMP1 DROP PRIMARY KEY;
+Query OK, 0 rows affected (1.29 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMP1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| EID   | int         | NO   |     | NULL    |       |
+| ENAME | varchar(30) | YES  |     | NULL    |       |
+| EAGE  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+ALTER TABLE ADD PRIMARY KEY:
+SY: ALTER TABLE TABLE_NAME ADD PRIMARY KEY(COLUMN_NAME);
+
+ALTER TABLE EMP1 ADD PRIMARY KEY(EID);
+Query OK, 0 rows affected (1.29 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMP1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| EID   | int         | NO   | PRI | NULL    |       |
+| ENAME | varchar(30) | YES  |     | NULL    |       |
+| EAGE  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+====================================================================================================
+
+NOT NULL:
+THIS CONSTRAINT SPECIFIES THAT THE COLUMN CANNOT HAVE NULL VALUES:
+SY: CREATE TABLE TABLE_NAME(COL1 DATATYPE NOT NULL, COL2 DATATYPE...)
+
+CREATE TABLE EMP2(EID INT NOT NULL, ENAME VARCHAR(30), EAGE INT);
+Query OK, 0 rows affected (0.55 sec)
+
+mysql> DESC EMP2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| EID   | int         | NO   |     | NULL    |       |
+| ENAME | varchar(30) | YES  |     | NULL    |       |
+| EAGE  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+IF WE TRY TO INSERT RECORDS, WE GET THE BELOW ERROR
+INSERT INTO EMP2 VALUES(NULL,'ABC',30);
+ERROR 1048 (23000): Column 'EID' cannot be null
+
+DROP NOT NULL:
+SY: ALTER TABLE TABLE_NAME CHANGE COL_NAME COL_NAME DATATYPE NULL;
+
+ALTER TABLE EMP2 CHANGE EID EID INT NULL;
+
+
+Query OK, 0 rows affected (1.61 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMP2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| EID   | int         | YES  |     | NULL    |       |
+| ENAME | varchar(30) | YES  |     | NULL    |       |
+| EAGE  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+ALTER TABLE EMP2 CHANGE EID EID INT NOT NULL;
+
+DESC EMP2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| EID   | int         | NO   |     | NULL    |       |
+| ENAME | varchar(30) | YES  |     | NULL    |       |
+| EAGE  | int         | YES  |     | NULL    |       |
++-------+-------------+----
+
+=========================================================================================================
+AUTO_INCREMENT : USES AUTO_INCREMENT KEYWORD TO PERFORM AND AUTO_INCREMENT FEATURE. BY DEFAULT START VALUE IS 1 AND IT WILL INCREMENT BY 1 FOR EACH RECORD
+
+SY: CREATE TABLE TABLE_NAME(COL1 DATATYPE AUTO_INCREMENT, COL2 DATATYPE....)
+CREATE EMP3(EID INT PRIMARY KEY AUTO_INCREMENT, ENAME VARCHAR(30), EAGE INT);
+
+mysql> DESC EMP3;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| EID   | int         | NO   | PRI | NULL    | auto_increment |
+| ENAME | varchar(30) | YES  |     | NULL    |                |
+| EAGE  | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+
+
+ CREATE TABLE EMP3(EID INT PRIMARY KEY AUTO_INCREMENT, ENAME VARCHAR(30), EAGE INT);
+Query OK, 0 rows affected (1.07 sec)
+
+mysql> DESC EMP3;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| EID   | int         | NO   | PRI | NULL    | auto_increment |
+| ENAME | varchar(30) | YES  |     | NULL    |                |
+| EAGE  | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMP3(ENAME,EAGE)VALUES('XYZ',20);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> SELECT * FROM EMP3;
++-----+-------+------+
+| EID | ENAME | EAGE |
++-----+-------+------+
+|   1 | XYZ   |   20 |
++-----+-------+------+
+1 row in set (0.00 sec)
+
+ALTER TABLE WITH DROP:
+ALTER TABLE EMP3 MODIGY EID INT;
+
+ALTER TABLE EMP3 MODIFY EID INT;
+Query OK, 1 row affected (1.40 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMP3;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| EID   | int         | NO   | PRI | NULL    |       |
+| ENAME | varchar(30) | YES  |     | NULL    |       |
+| EAGE  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+ALTER WITH ADD:
+ALTER TABLE EMP3 MODIFY EID INT AUTO_INCREMENT;
+
+ DESC EMP3;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| EID   | int         | NO   | PRI | NULL    | auto_increment |
+| ENAME | varchar(30) | YES  |     | NULL    |                |
+| EAGE  | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+===================================================================================================================
+
+UNIQUE CONSTRAINT:
+ENSURES THAT ALL VALUES IN A COLUMN ARE DIFFERENT. BOTH UNIQUE AND PRIMARY KEY CONSTRAINTS PROVIDE A GUARANTEE FOR UNIQUENESS FOR A SET OF COLUMNS.
+
+A PRIMARY KEY CONSTRAINT AUTOMATICALLY HAS A UNIQUE CONSTRAINT. 
+DIFF: WE CAN HAVE MANY UNIQUE CONSTRAINTS PER TABLE, BUT WE CAN HAVE ONLY ONE PRIMARY KEY CONSTARINT.
+
+CREATE TABLE EMP4(
+	EID INT NOT NULL, 
+	ENAME VARCHAR(30),
+	EAGE INT, 
+	UNIQUE(EID)
+);
+
+DESC EMP4;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| EID   | int         | NO   | PRI | NULL    |       |
+| ENAME | varchar(30) | YES  |     | NULL    |       |
+| EAGE  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+TO NAME MULTIPLE COLUMNS AS UNIQUE:
+CREATE TABLE EMP5(
+	EID INT NOT NULL,
+	ENAME VARCHAR(30),
+	EAGE INT,
+	CONSTRAINT UC_EMP4 UNIQUE (EID, ENAME));
+
+
+======================================================================================================================================
+FOREIGN KEY:
+
+THIS CONSTRAINT IS USED TO LINK TWO TABLES TOGETHER. IT IS ALSO KNOWN AS REFERENCING KEY.
+SY: CREATE TABLE TABLE_NAME(COL1 DATATYPE PRIMARY KEY, COL2 DATATYPE...COL4 DATATYPE , FOREIGN KEY(COL_NAME) REFERENCES TABLE_NAME COL_NAME);
+
+
+CREATE TABLE DEPARTMENT(DEPID INT PRIMARY KEY, DEP_NAME VARCHAR(30));
+
+
+CREATE TABLE EMP6(EID INT PRIMARY KEY, ENAME VARCHAR(30), EAGE INT, EDEP_ID INT, FOREIGN KEY(EDEP_ID) REFERENCES DEPARTMENT(DEPID));
+
+
+EMP6  | CREATE TABLE `emp6` (
+  `EID` int NOT NULL,
+  `ENAME` varchar(30) DEFAULT NULL,
+  `EAGE` int DEFAULT NULL,
+  `EDEP_ID` int DEFAULT NULL,
+  PRIMARY KEY (`EID`),
+  KEY `EDEP_ID` (`EDEP_ID`),
+  CONSTRAINT `emp6_ibfk_1` FOREIGN KEY (`EDEP_ID`) REFERENCES `department` (`DEPID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
+
+desc emp6;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| EID     | int         | NO   | PRI | NULL    |       |
+| ENAME   | varchar(30) | YES  |     | NULL    |       |
+| EAGE    | int         | YES  |     | NULL    |       |
+| EDEP_ID | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+MUL in the Key column indicates that the field is a non-unique index, often created automatically when the column is part of a foreign key.
