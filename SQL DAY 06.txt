@@ -248,3 +248,10 @@ desc emp6;
 +---------+-------------+------+-----+---------+-------+
 
 MUL in the Key column indicates that the field is a non-unique index, often created automatically when the column is part of a foreign key.
+
+ALTER TABLE WITH DROP:
+ALTER TABLE EMP6 DROP FOREIGN KEY `emp6_ibfk_1;
+
+FOREIGN KEY ALTER
+ALTER TABLE EMP6 ADD FOREIGN KEY(EDEP_ID)REFERENCES DEPARTMENT(DEP_ID);
+
