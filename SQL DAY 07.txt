@@ -1,0 +1,160 @@
+CHECK KEY:
+
+CHECK KEY: 
+If controls the value in a particular column.
+It ensures that the inserted value in a column must be satisfied with the given condition in other words,
+[it determines whether the value associated with the columns is valid or not with the given condition]
+
+sy: CREATE TABLE-NAME(COL1 INT PRIMARY KEY,COL2 DATATYPE,COL3 DATATYPE CONSTRAINT 'CONSTRAINTNAME' CHECK(CONDTION), COL4 DATATYPE);
+
+CREATE TABLE EMP7(EID INT, ENAME VARCHAR(20), EAGE INT CONSTRAINT CHECKEAGE1 CHECK(EAGE BETWEEN 18 AND 50));
+Query OK, 0 rows affected (1.06 sec)
+
+mysql> DESC EMP7;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| EID   | int         | YES  |     | NULL    |       |
+| ENAME | varchar(20) | YES  |     | NULL    |       |
+| EAGE  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.06 sec)
+
+mysql> SHOW CREATE TABLE EMP7;
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                   |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| EMP7  | CREATE TABLE `emp7` (
+  `EID` int DEFAULT NULL,
+  `ENAME` varchar(20) DEFAULT NULL,
+  `EAGE` int DEFAULT NULL,
+  CONSTRAINT `CHECKEAGE1` CHECK ((`EAGE` between 18 and 50))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.06 sec)
+
+mysql> INSERT INTO EMP7 VALUES(1,'abc',18);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> INSERT INTO EMP7 VALUES(2,'XYZ',15);
+ERROR 3819 (HY000): Check constraint 'CHECKEAGE1' is violated.
+
+
+ALTER WITH DROP
+ALTER TABLE EMP7 DROP CONSTRAINT CHECKEAGE1;
+
+INSERT INTO EMP7 VALUES(3,'TEST',51);
+Query OK, 1 row affected (0.08 sec)
+
+ALTER WITH ADD:
+
+ ALTER TABLE EMP7 ADD CONSTRAINT CHECKEAGE1 CHECK(EAGE BETWEEN 18 AND 50);
+ERROR 3819 (HY000): Check constraint 'CHECKEAGE1' is violated.
+mysql> SELECT * FROM EMP7;
++------+-------+------+
+| EID  | ENAME | EAGE |
++------+-------+------+
+|    1 | abc   |   18 |
+|    3 | TEST  |   51 |
++------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMP7 WHERE EID = 3;
+Query OK, 1 row affected (0.16 sec)
+
+mysql> ALTER TABLE EMP7 ADD CONSTRAINT CHECKEAGE1 CHECK(EAGE BETWEEN 18 AND 50);
+Query OK, 1 row affected (2.38 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMP7;
++------+-------+------+
+| EID  | ENAME | EAGE |
++------+-------+------+
+|    1 | abc   |   18 |
++------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO EMP7 VALUES(2,'XYZ',51);
+ERROR 3819 (HY000): Check constraint 'CHECKEAGE1' is violated.
+
+================================================================================================================================
+
+DEFAULT KEY:
+
+DEFAULT KEY: it means the column must contains a value, including null. this constraint is used to set the default value for the particular column where we have not specified any value.
+
+ CREATE TABLE EMP8(EID INT, ENAME VARCHAR(30),EAGE INT DEFAULT 18);
+Query OK, 0 rows affected (0.91 sec)
+
+mysql> SHOW CREATE TABLE EMP8;
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                     |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| EMP8  | CREATE TABLE `emp8` (
+  `EID` int DEFAULT NULL,
+  `ENAME` varchar(30) DEFAULT NULL,
+  `EAGE` int DEFAULT '18'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.02 sec)
+
+mysql> INSERT INTO EMP8(EID,ENAME)VALUES(1,'ABC');
+Query OK, 1 row affected (0.17 sec)
+
+mysql> SELECT * FROM EMP8;
++------+-------+------+
+| EID  | ENAME | EAGE |
++------+-------+------+
+|    1 | ABC   |   18 |
++------+-------+------+
+1 row in set (0.00 sec)
+
+ALTER WITH DROP 
+ALTER TABLE EMP8 ALTER EAGE DROP DEFAULT; 
+
+Query OK, 0 rows affected (0.30 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO EMP8(EID,ENAME)VALUES(2,'XYZ');
+ERROR 1364 (HY000): Field 'EAGE' doesn't have a default value
+
+
+ALTER WITH ADD:
+ALTER TABLE EMP8 ALTER EAGE SET DEFAULT 18;
+
+ INSERT INTO EMP8(EID,ENAME)VALUES(2,'XYZ');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> SELECT * FROM EMP8;
++------+-------+------+
+| EID  | ENAME | EAGE |
++------+-------+------+
+|    1 | ABC   |   18 |
+|    2 | XYZ   |   18 |
++------+-------+------+
+2 rows in set (0.00 sec)
+
+
+SQL WORKBENCH CONSTRAINTS:
+Attribute	Type Applies To		Key Effect
+BINARY		CHAR, VARCHAR		Case-sensitive string comparisons
+UNSIGNED	Numeric types		Only allows 0 and positive values
+ZEROFILL	Numeric types		Pads output with leading zeroes; also implies UNSIGNED
+GENERATED	Any (calculated column)	Automatically computes from expression
+
+
+
+================================================================================================================
+
+JOINS:
+
+INNER JOIN: MATCHING ROWS FROM BOTH TABLES
+
+INNERT JOIN / JOIN  : The INNER JOIN keyword selects records that have matching values in both tables.
+
+
+
+
+
+
+
