@@ -1,0 +1,78 @@
+ER Diagram representation :
+
+
+Tables:
+1. Students
+Column	Type
+student_id	INT (PK)
+name	VARCHAR
+class_id	INT (FK)
+
+2. Classes
+Column	Type
+class_id	INT (PK)
+class_name	VARCHAR
+
+3. Subjects
+Column	Type
+subject_id	INT (PK)
+subject_name	VARCHAR
+class_id	INT (FK)
+
+
+
+Entities and Relationships:
+A Student belongs to one Class
+A Class can have many Students
+A Class can have many Subjects
+A Subject belongs to one Class
+
+
++------------+          +------------+          +-------------+
+|  Students  |          |  Classes   |          |  Subjects   |
++------------+          +------------+          +-------------+
+| student_id |<>-------|| class_id   ||-------<>| class_id    |
+| name       |          | class_name |          | subject_id  |
+| class_id   |          +------------+          | subject_name|
++------------+                               	+-------------+
+
+Legend:
+<>-------||   = Many-to-One
+||-------<>   = One-to-Many
+
+
+How to Read It:
+Students and Classes:
+Students.class_id is a foreign key pointing to Classes.class_id.
+A class can have many students → One-to-Many (Classes to Students).
+
+Subjects and Classes:
+Subjects.class_id is a foreign key pointing to Classes.class_id.
+A class can have many subjects → One-to-Many (Classes to Subjects).
+
+CREATE TABLE Classes (
+    class_id INT PRIMARY KEY,
+    class_name VARCHAR(100)
+);
+
+CREATE TABLE Students (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    class_id INT,
+    FOREIGN KEY (class_id) REFERENCES Classes(class_id)
+);
+
+CREATE TABLE Subjects (
+    subject_id INT PRIMARY KEY,
+    subject_name VARCHAR(100),
+    class_id INT,
+    FOREIGN KEY (class_id) REFERENCES Classes(class_id)
+);
+
+
+
+One-to-One (1:1) → Each row in A matches one in B.
+
+One-to-Many (1:N) → One in A can match many in B.
+
+Many-to-Many (M:N) → Requires a junction table.
