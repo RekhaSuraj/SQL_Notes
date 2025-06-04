@@ -1,0 +1,271 @@
+JOINS: 
+1. INNER JOIN - MATCHES ROWS FROM BOTH TABLES
+
+SY: SELECT COL1, COL2, COL3, COL4...FROM TABLE_NAME1 INNER JOIN TABLE_NAME2 ON CONDITION
+
+MATCHING RECORDS FROM PRODUCTS AND CUSTOMER TABLE
+SELECT PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY, CUSTOMER_NAME, LOCATION FROM PRODUCTS INNER JOIN CUSTOMER ON PRODUCTS.PRODUCT_SELL = CUSTOMER.PRODUCT_SELL;
+
++---------------+---------------+------------------+---------------+---------------+
+| PRODUCT_NAME  | PRODUCT_PRICE | PRODUCT_QUANTITY | CUSTOMER_NAME | LOCATION      |
++---------------+---------------+------------------+---------------+---------------+
+| Mysore Sandal |            45 |               89 | SIREESHA      | MADANAPALLI   |
+| Chndrika      |            50 |               30 | RAJU          | RAJAMPETA     |
+| Lux           |            36 |              120 | RAJU          | RAJAMPETA     |
+| Dettol        |            40 |               90 | BHARATH       | CHENNAI       |
+| Lifebuoy      |            34 |               36 | DHANA         | GOA           |
+| Acnestar      |           100 |               20 | KARTHIK       | JAMMALAMADUGU |
+| Santoor       |            43 |              500 | VENKATESH     | MUMBAI        |
+| Dettol        |            40 |               90 | MAHALAXMI     | RAVULAPALEM   |
++---------------+---------------+------------------+---------------+---------------+
+8 rows in set (0.04 sec)
+
+ALIAS NAME:
+SELECT P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_QUANTITY, P.PRODUCT_SELL, C.CID, C.CUSTOMER_NAME, C.LOCATION FROM PRODUCTS AS P INNER JOIN CUSTOMER AS C ON P.PRODUCT_SELL = C.PRODUCT_SELL;
+
+ SELECT P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_QUANTITY, P.PRODUCT_SELL, C.CID, C.CUSTOMER_NAME, C.LOCATION FROM PRODUCTS AS P INNER JOIN CUSTOMER AS C ON P.PRODUCT_SELL = C.PRODUCT_SELL;
++---------------+---------------+------------------+--------------+-------+---------------+---------------+
+| PRODUCT_NAME  | PRODUCT_PRICE | PRODUCT_QUANTITY | PRODUCT_SELL | CID   | CUSTOMER_NAME | LOCATION      |
++---------------+---------------+------------------+--------------+-------+---------------+---------------+
+| Mysore Sandal |            45 |               89 |           34 | 10012 | SIREESHA      | MADANAPALLI   |
+| Chndrika      |            50 |               30 |           12 | 10018 | RAJU          | RAJAMPETA     |
+| Lux           |            36 |              120 |           12 | 10018 | RAJU          | RAJAMPETA     |
+| Dettol        |            40 |               90 |           67 | 10019 | BHARATH       | CHENNAI       |
+| Lifebuoy      |            34 |               36 |           19 | 10020 | DHANA         | GOA           |
+| Acnestar      |           100 |               20 |           17 | 10021 | KARTHIK       | JAMMALAMADUGU |
+| Santoor       |            43 |              500 |           77 | 10023 | VENKATESH     | MUMBAI        |
+| Dettol        |            40 |               90 |           67 | 10026 | MAHALAXMI     | RAVULAPALEM   |
++---------------+---------------+------------------+--------------+-------+---------------+---------------+
+
+RIGHT JOIN: RIGHT OUTER JOIN
+RETURNS ALL RECORDS FROM RIGHT TABLE AND ONLY MATCHING RECORDS FROM LEFT TABLE(NULL)
+
+SELECT P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_QUANTITY, P.PRODUCT_SELL, C.CID, C.CUSTOMER_NAME, C.LOCATION FROM PRODUCTS AS P RIGHT JOIN CUSTOMER AS C ON P.PRODUCT_SELL = C.PRODUCT_SELL;
++---------------+---------------+------------------+--------------+-------+---------------+---------------+
+| PRODUCT_NAME  | PRODUCT_PRICE | PRODUCT_QUANTITY | PRODUCT_SELL | CID   | CUSTOMER_NAME | LOCATION      |
++---------------+---------------+------------------+--------------+-------+---------------+---------------+
+| Mysore Sandal |            45 |               89 |           34 | 10012 | SIREESHA      | MADANAPALLI   |
+| NULL          |          NULL |             NULL |         NULL | 10013 | CHANDRIKA     | RAYACHOTI     |
+| NULL          |          NULL |             NULL |         NULL | 10014 | JAGADESWAR    | KADAPA        |
+| NULL          |          NULL |             NULL |         NULL | 10015 | RAMU          | MEXICO        |
+| NULL          |          NULL |             NULL |         NULL | 10016 | VELU          | TIRUPATI      |
+| NULL          |          NULL |             NULL |         NULL | 10017 | GANGADHRAM    | NELLORE       |
+| Chndrika      |            50 |               30 |           12 | 10018 | RAJU          | RAJAMPETA     |
+| Lux           |            36 |              120 |           12 | 10018 | RAJU          | RAJAMPETA     |
+| Dettol        |            40 |               90 |           67 | 10019 | BHARATH       | CHENNAI       |
+| Lifebuoy      |            34 |               36 |           19 | 10020 | DHANA         | GOA           |
+| Acnestar      |           100 |               20 |           17 | 10021 | KARTHIK       | JAMMALAMADUGU |
+| NULL          |          NULL |             NULL |         NULL | 10022 | MUNI          | BANGALORE     |
+| Santoor       |            43 |              500 |           77 | 10023 | VENKATESH     | MUMBAI        |
+| NULL          |          NULL |             NULL |         NULL | 10024 | BALAJI        | NOOLIVEDU     |
+| NULL          |          NULL |             NULL |         NULL | 10025 | DARLA         | SWIZERLAND    |
+| Dettol        |            40 |               90 |           67 | 10026 | MAHALAXMI     | RAVULAPALEM   |
++---------------+---------------+------------------+--------------+-------+---------------+---------------+
+
+LEFT JOIN: 
+RETURNS ALL RECORDS FROM LEFT TABLE AND ONLY MATCHING RECORDS FROM RIGHT TABLE
+
+SELECT P.PRODUCT_NAME, P.PRODUCT_PRICE, P.PRODUCT_QUANTITY, P.PRODUCT_SELL, C.CID, C.CUSTOMER_NAME, C.LOCATION FROM PRODUCTS AS P LEFT JOIN CUSTOMER AS C ON P.PRODUCT_SELL = C.PRODUCT_SELL;
+
++---------------+---------------+------------------+--------------+-------+---------------+---------------+
+| PRODUCT_NAME  | PRODUCT_PRICE | PRODUCT_QUANTITY | PRODUCT_SELL | CID   | CUSTOMER_NAME | LOCATION      |
++---------------+---------------+------------------+--------------+-------+---------------+---------------+
+| Medimix       |            40 |              200 |           56 |  NULL | NULL          | NULL          |
+| Santoor       |            43 |              500 |           77 | 10023 | VENKATESH     | MUMBAI        |
+| Mysore Sandal |            45 |               89 |           34 | 10012 | SIREESHA      | MADANAPALLI   |
+| Lux           |            36 |              120 |           12 | 10018 | RAJU          | RAJAMPETA     |
+| Acnestar      |           100 |               20 |           17 | 10021 | KARTHIK       | JAMMALAMADUGU |
+| No1           |            35 |              200 |           58 |  NULL | NULL          | NULL          |
+| Dettol        |            40 |               90 |           67 | 10026 | MAHALAXMI     | RAVULAPALEM   |
+| Dettol        |            40 |               90 |           67 | 10019 | BHARATH       | CHENNAI       |
+| Chndrika      |            50 |               30 |           12 | 10018 | RAJU          | RAJAMPETA     |
+| Pears         |            60 |               34 |           28 |  NULL | NULL          | NULL          |
+| Lifebuoy      |            34 |               36 |           19 | 10020 | DHANA         | GOA           |
++---------------+---------------+------------------+--------------+-------+---------------+---------------+
+11 rows in set (0.00 sec)
+
+SQL CROSS JOIN:
+RETURNS ALL RECORDS FROM BOTH THE TABLES (CARTESIAN PRODUCT)
+
+SELECT * FROM PRODUCTS CROSS JOIN CUSTOMER;
+
++------------+---------------+---------------+------------------+--------------+-------+---------------+---------------+--------------+
+| Product_Id | Product_Name  | Product_Price | Product_Quantity | Product_Sell | CID   | CUSTOMER_NAME | LOCATION      | PRODUCT_SELL |
++------------+---------------+---------------+------------------+--------------+-------+---------------+---------------+--------------+
+|          6 | No1           |            35 |              200 |           58 | 10024 | BALAJI        | NOOLIVEDU     |           20 |
+|          7 | Dettol        |            40 |               90 |           67 | 10024 | BALAJI        | NOOLIVEDU     |           20 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10024 | BALAJI        | NOOLIVEDU     |           20 |
+|          9 | Pears         |            60 |               34 |           28 | 10024 | BALAJI        | NOOLIVEDU     |           20 |
+|          1 | Medimix       |            40 |              200 |           56 | 10024 | BALAJI        | NOOLIVEDU     |           20 |
+|          2 | Santoor       |            43 |              500 |           77 | 10024 | BALAJI        | NOOLIVEDU     |           20 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10024 | BALAJI        | NOOLIVEDU     |           20 |
+|          4 | Lux           |            36 |              120 |           12 | 10024 | BALAJI        | NOOLIVEDU     |           20 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10024 | BALAJI        | NOOLIVEDU     |           20 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10024 | BALAJI        | NOOLIVEDU     |           20 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10019 | BHARATH       | CHENNAI       |           67 |
+|          2 | Santoor       |            43 |              500 |           77 | 10019 | BHARATH       | CHENNAI       |           67 |
+|          1 | Medimix       |            40 |              200 |           56 | 10019 | BHARATH       | CHENNAI       |           67 |
+|          4 | Lux           |            36 |              120 |           12 | 10019 | BHARATH       | CHENNAI       |           67 |
+|          6 | No1           |            35 |              200 |           58 | 10019 | BHARATH       | CHENNAI       |           67 |
+|          7 | Dettol        |            40 |               90 |           67 | 10019 | BHARATH       | CHENNAI       |           67 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10019 | BHARATH       | CHENNAI       |           67 |
+|          9 | Pears         |            60 |               34 |           28 | 10019 | BHARATH       | CHENNAI       |           67 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10019 | BHARATH       | CHENNAI       |           67 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10019 | BHARATH       | CHENNAI       |           67 |
+|          2 | Santoor       |            43 |              500 |           77 | 10013 | CHANDRIKA     | RAYACHOTI     |           69 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10013 | CHANDRIKA     | RAYACHOTI     |           69 |
+|          9 | Pears         |            60 |               34 |           28 | 10013 | CHANDRIKA     | RAYACHOTI     |           69 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10013 | CHANDRIKA     | RAYACHOTI     |           69 |
+|          7 | Dettol        |            40 |               90 |           67 | 10013 | CHANDRIKA     | RAYACHOTI     |           69 |
+|          6 | No1           |            35 |              200 |           58 | 10013 | CHANDRIKA     | RAYACHOTI     |           69 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10013 | CHANDRIKA     | RAYACHOTI     |           69 |
+|          4 | Lux           |            36 |              120 |           12 | 10013 | CHANDRIKA     | RAYACHOTI     |           69 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10013 | CHANDRIKA     | RAYACHOTI     |           69 |
+|          1 | Medimix       |            40 |              200 |           56 | 10013 | CHANDRIKA     | RAYACHOTI     |           69 |
+|          6 | No1           |            35 |              200 |           58 | 10025 | DARLA         | SWIZERLAND    |           40 |
+|          7 | Dettol        |            40 |               90 |           67 | 10025 | DARLA         | SWIZERLAND    |           40 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10025 | DARLA         | SWIZERLAND    |           40 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10025 | DARLA         | SWIZERLAND    |           40 |
+|          1 | Medimix       |            40 |              200 |           56 | 10025 | DARLA         | SWIZERLAND    |           40 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10025 | DARLA         | SWIZERLAND    |           40 |
+|          4 | Lux           |            36 |              120 |           12 | 10025 | DARLA         | SWIZERLAND    |           40 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10025 | DARLA         | SWIZERLAND    |           40 |
+|          2 | Santoor       |            43 |              500 |           77 | 10025 | DARLA         | SWIZERLAND    |           40 |
+|          9 | Pears         |            60 |               34 |           28 | 10025 | DARLA         | SWIZERLAND    |           40 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10020 | DHANA         | GOA           |           19 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10020 | DHANA         | GOA           |           19 |
+|          7 | Dettol        |            40 |               90 |           67 | 10020 | DHANA         | GOA           |           19 |
+|          6 | No1           |            35 |              200 |           58 | 10020 | DHANA         | GOA           |           19 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10020 | DHANA         | GOA           |           19 |
+|          9 | Pears         |            60 |               34 |           28 | 10020 | DHANA         | GOA           |           19 |
+|          1 | Medimix       |            40 |              200 |           56 | 10020 | DHANA         | GOA           |           19 |
+|          2 | Santoor       |            43 |              500 |           77 | 10020 | DHANA         | GOA           |           19 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10020 | DHANA         | GOA           |           19 |
+|          4 | Lux           |            36 |              120 |           12 | 10020 | DHANA         | GOA           |           19 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10017 | GANGADHRAM    | NELLORE       |           86 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10017 | GANGADHRAM    | NELLORE       |           86 |
+|          1 | Medimix       |            40 |              200 |           56 | 10017 | GANGADHRAM    | NELLORE       |           86 |
+|          9 | Pears         |            60 |               34 |           28 | 10017 | GANGADHRAM    | NELLORE       |           86 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10017 | GANGADHRAM    | NELLORE       |           86 |
+|          7 | Dettol        |            40 |               90 |           67 | 10017 | GANGADHRAM    | NELLORE       |           86 |
+|          6 | No1           |            35 |              200 |           58 | 10017 | GANGADHRAM    | NELLORE       |           86 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10017 | GANGADHRAM    | NELLORE       |           86 |
+|          4 | Lux           |            36 |              120 |           12 | 10017 | GANGADHRAM    | NELLORE       |           86 |
+|          2 | Santoor       |            43 |              500 |           77 | 10017 | GANGADHRAM    | NELLORE       |           86 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10014 | JAGADESWAR    | KADAPA        |           50 |
+|          9 | Pears         |            60 |               34 |           28 | 10014 | JAGADESWAR    | KADAPA        |           50 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10014 | JAGADESWAR    | KADAPA        |           50 |
+|          7 | Dettol        |            40 |               90 |           67 | 10014 | JAGADESWAR    | KADAPA        |           50 |
+|          1 | Medimix       |            40 |              200 |           56 | 10014 | JAGADESWAR    | KADAPA        |           50 |
+|          2 | Santoor       |            43 |              500 |           77 | 10014 | JAGADESWAR    | KADAPA        |           50 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10014 | JAGADESWAR    | KADAPA        |           50 |
+|          4 | Lux           |            36 |              120 |           12 | 10014 | JAGADESWAR    | KADAPA        |           50 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10014 | JAGADESWAR    | KADAPA        |           50 |
+|          6 | No1           |            35 |              200 |           58 | 10014 | JAGADESWAR    | KADAPA        |           50 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10021 | KARTHIK       | JAMMALAMADUGU |           17 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10021 | KARTHIK       | JAMMALAMADUGU |           17 |
+|          2 | Santoor       |            43 |              500 |           77 | 10021 | KARTHIK       | JAMMALAMADUGU |           17 |
+|          1 | Medimix       |            40 |              200 |           56 | 10021 | KARTHIK       | JAMMALAMADUGU |           17 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10021 | KARTHIK       | JAMMALAMADUGU |           17 |
+|          6 | No1           |            35 |              200 |           58 | 10021 | KARTHIK       | JAMMALAMADUGU |           17 |
+|          7 | Dettol        |            40 |               90 |           67 | 10021 | KARTHIK       | JAMMALAMADUGU |           17 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10021 | KARTHIK       | JAMMALAMADUGU |           17 |
+|          9 | Pears         |            60 |               34 |           28 | 10021 | KARTHIK       | JAMMALAMADUGU |           17 |
+|          4 | Lux           |            36 |              120 |           12 | 10021 | KARTHIK       | JAMMALAMADUGU |           17 |
+|          1 | Medimix       |            40 |              200 |           56 | 10026 | MAHALAXMI     | RAVULAPALEM   |           67 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10026 | MAHALAXMI     | RAVULAPALEM   |           67 |
+|          9 | Pears         |            60 |               34 |           28 | 10026 | MAHALAXMI     | RAVULAPALEM   |           67 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10026 | MAHALAXMI     | RAVULAPALEM   |           67 |
+|          7 | Dettol        |            40 |               90 |           67 | 10026 | MAHALAXMI     | RAVULAPALEM   |           67 |
+|          6 | No1           |            35 |              200 |           58 | 10026 | MAHALAXMI     | RAVULAPALEM   |           67 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10026 | MAHALAXMI     | RAVULAPALEM   |           67 |
+|          4 | Lux           |            36 |              120 |           12 | 10026 | MAHALAXMI     | RAVULAPALEM   |           67 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10026 | MAHALAXMI     | RAVULAPALEM   |           67 |
+|          2 | Santoor       |            43 |              500 |           77 | 10026 | MAHALAXMI     | RAVULAPALEM   |           67 |
+|          6 | No1           |            35 |              200 |           58 | 10022 | MUNI          | BANGALORE     |           57 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10022 | MUNI          | BANGALORE     |           57 |
+|          9 | Pears         |            60 |               34 |           28 | 10022 | MUNI          | BANGALORE     |           57 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10022 | MUNI          | BANGALORE     |           57 |
+|          7 | Dettol        |            40 |               90 |           67 | 10022 | MUNI          | BANGALORE     |           57 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10022 | MUNI          | BANGALORE     |           57 |
+|          4 | Lux           |            36 |              120 |           12 | 10022 | MUNI          | BANGALORE     |           57 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10022 | MUNI          | BANGALORE     |           57 |
+|          2 | Santoor       |            43 |              500 |           77 | 10022 | MUNI          | BANGALORE     |           57 |
+|          1 | Medimix       |            40 |              200 |           56 | 10022 | MUNI          | BANGALORE     |           57 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10018 | RAJU          | RAJAMPETA     |           12 |
+|          9 | Pears         |            60 |               34 |           28 | 10018 | RAJU          | RAJAMPETA     |           12 |
+|          7 | Dettol        |            40 |               90 |           67 | 10018 | RAJU          | RAJAMPETA     |           12 |
+|          1 | Medimix       |            40 |              200 |           56 | 10018 | RAJU          | RAJAMPETA     |           12 |
+|          6 | No1           |            35 |              200 |           58 | 10018 | RAJU          | RAJAMPETA     |           12 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10018 | RAJU          | RAJAMPETA     |           12 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10018 | RAJU          | RAJAMPETA     |           12 |
+|          4 | Lux           |            36 |              120 |           12 | 10018 | RAJU          | RAJAMPETA     |           12 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10018 | RAJU          | RAJAMPETA     |           12 |
+|          2 | Santoor       |            43 |              500 |           77 | 10018 | RAJU          | RAJAMPETA     |           12 |
+|          2 | Santoor       |            43 |              500 |           77 | 10015 | RAMU          | MEXICO        |           45 |
+|          7 | Dettol        |            40 |               90 |           67 | 10015 | RAMU          | MEXICO        |           45 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10015 | RAMU          | MEXICO        |           45 |
+|          9 | Pears         |            60 |               34 |           28 | 10015 | RAMU          | MEXICO        |           45 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10015 | RAMU          | MEXICO        |           45 |
+|          1 | Medimix       |            40 |              200 |           56 | 10015 | RAMU          | MEXICO        |           45 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10015 | RAMU          | MEXICO        |           45 |
+|          4 | Lux           |            36 |              120 |           12 | 10015 | RAMU          | MEXICO        |           45 |
+|          6 | No1           |            35 |              200 |           58 | 10015 | RAMU          | MEXICO        |           45 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10015 | RAMU          | MEXICO        |           45 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10012 | SIREESHA      | MADANAPALLI   |           34 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10012 | SIREESHA      | MADANAPALLI   |           34 |
+|          4 | Lux           |            36 |              120 |           12 | 10012 | SIREESHA      | MADANAPALLI   |           34 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10012 | SIREESHA      | MADANAPALLI   |           34 |
+|          6 | No1           |            35 |              200 |           58 | 10012 | SIREESHA      | MADANAPALLI   |           34 |
+|          1 | Medimix       |            40 |              200 |           56 | 10012 | SIREESHA      | MADANAPALLI   |           34 |
+|          7 | Dettol        |            40 |               90 |           67 | 10012 | SIREESHA      | MADANAPALLI   |           34 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10012 | SIREESHA      | MADANAPALLI   |           34 |
+|          9 | Pears         |            60 |               34 |           28 | 10012 | SIREESHA      | MADANAPALLI   |           34 |
+|          2 | Santoor       |            43 |              500 |           77 | 10012 | SIREESHA      | MADANAPALLI   |           34 |
+|          6 | No1           |            35 |              200 |           58 | 10016 | VELU          | TIRUPATI      |           78 |
+|          7 | Dettol        |            40 |               90 |           67 | 10016 | VELU          | TIRUPATI      |           78 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10016 | VELU          | TIRUPATI      |           78 |
+|          9 | Pears         |            60 |               34 |           28 | 10016 | VELU          | TIRUPATI      |           78 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10016 | VELU          | TIRUPATI      |           78 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10016 | VELU          | TIRUPATI      |           78 |
+|          1 | Medimix       |            40 |              200 |           56 | 10016 | VELU          | TIRUPATI      |           78 |
+|          2 | Santoor       |            43 |              500 |           77 | 10016 | VELU          | TIRUPATI      |           78 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10016 | VELU          | TIRUPATI      |           78 |
+|          4 | Lux           |            36 |              120 |           12 | 10016 | VELU          | TIRUPATI      |           78 |
+|          1 | Medimix       |            40 |              200 |           56 | 10023 | VENKATESH     | MUMBAI        |           77 |
+|          2 | Santoor       |            43 |              500 |           77 | 10023 | VENKATESH     | MUMBAI        |           77 |
+|          3 | Mysore Sandal |            45 |               89 |           34 | 10023 | VENKATESH     | MUMBAI        |           77 |
+|          4 | Lux           |            36 |              120 |           12 | 10023 | VENKATESH     | MUMBAI        |           77 |
+|          5 | Acnestar      |           100 |               20 |           17 | 10023 | VENKATESH     | MUMBAI        |           77 |
+|          6 | No1           |            35 |              200 |           58 | 10023 | VENKATESH     | MUMBAI        |           77 |
+|          8 | Chndrika      |            50 |               30 |           12 | 10023 | VENKATESH     | MUMBAI        |           77 |
+|          9 | Pears         |            60 |               34 |           28 | 10023 | VENKATESH     | MUMBAI        |           77 |
+|         10 | Lifebuoy      |            34 |               36 |           19 | 10023 | VENKATESH     | MUMBAI        |           77 |
+|          7 | Dettol        |            40 |               90 |           67 | 10023 | VENKATESH     | MUMBAI        |           77 |
++------------+---------------+---------------+------------------+--------------+-------+---------------+---------------+--------------+
+150 rows in set (0.02 sec)
+
+SELF JOIN:
+A SELF JOIN IS A REGULAR JOIN BUT HE TABLE IS JOINED WITN ITSELF
+
+ SELECT E.ENAME, M.ENAME FROM EMP_MANAGERS AS E LEFT JOIN EMP_MANAGERS AS M ON E.MANAGER_ID = M.EID;
++--------+--------+
+| ENAME  | ENAME  |
++--------+--------+
+| AMAR   | NULL   |
+| SEETHA | AMAR   |
+| ROSE   | AMAR   |
+| DAVID  | SEETHA |
+| JOE    | SEETHA |
++--------+--------+
+5 rows in set (0.00 sec)
+
+E - IS ALIAS FOR EMPLOYEE TABLE
+M - IS ALIAS FOR MANAGER TABLE
+
+E.MANAGER_ID = M.EID IS TO FIND EACH EMPLOYEE'S MANAGER
+
+
+
+
+
