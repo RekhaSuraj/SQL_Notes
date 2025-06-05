@@ -1,0 +1,158 @@
+SUB QUERIES
+
+QUERY INSIDE ANOTHER QUERY:
+OUTER QUERY
+INNER QUERY
+
+SELECT * FROM DEPARTMENTS;
++---------------+-----------------+-----------+
+| DEPARTMENT_ID | DEPARTMENT_NAME | LOCATION  |
++---------------+-----------------+-----------+
+|           101 | HR              | New York  |
+|           102 | IT              | Bangalore |
+|           103 | Finance         | Mumbai    |
+|           104 | Marketing       | Delhi     |
++---------------+-----------------+-----------+
+4 rows in set (0.04 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+---------+--------+---------------+
+| EMP_ID | ENAME   | SALARY | DEPARTMENT_ID |
++--------+---------+--------+---------------+
+|      1 | Amar    |  50000 |           101 |
+|      2 | Joe     |  60000 |           102 |
+|      3 | Charlie |  40000 |           101 |
+|      4 | Diana   |  70000 |           103 |
+|      5 | Edward  |  45000 |           102 |
+|      6 | Seetha  |  50000 |           104 |
+|      7 | George  |  40000 |           101 |
+|      8 | Hannah  |  80000 |           103 |
+|      9 | Ian     |  35000 |           104 |
++--------+---------+--------+---------------+
+9 rows in set (0.00 sec)
+
+
+1. DISPLAY SECOND MAX SALARY FROM EMPLOYEES
+mysql> SELECT MAX(SALARY) FROM EMPLOYEES;
++-------------+
+| MAX(SALARY) |
++-------------+
+|       80000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(SALARY) FROM EMPLOYEES WHERE SALARY < (SELECT MAX(SALARY) FROM EMPLOYEES);
++-------------+
+| MAX(SALARY) |
++-------------+
+|       70000 |
++-------------+
+1 row in set (0.00 sec)
+
+
+2. DISPLAY EMPLOYEES WHO ARE EARNING THE HIGHEST SALARY
+
+SELECT ENAME, SALARY FROM EMPLOYEES WHERE SALARY = (SELECT MAX(SALARY) FROM EMPLOYEES);
++--------+--------+
+| ENAME  | SALARY |
++--------+--------+
+| Hannah |  80000 |
++--------+--------+
+1 row in set (0.00 sec)
+
+3. DISPLAY EMPLOYEES WHOSE SALARY IS EQUAL TO THE SALARY OF EMPLOYEES IN DEP 101
+
+SELECT * FROM EMPLOYEES WHERE SALARY IN ( SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 101);
++--------+---------+--------+---------------+
+| EMP_ID | ENAME   | SALARY | DEPARTMENT_ID |
++--------+---------+--------+---------------+
+|      1 | Amar    |  50000 |           101 |
+|      3 | Charlie |  40000 |           101 |
+|      6 | Seetha  |  50000 |           104 |
+|      7 | George  |  40000 |           101 |
++--------+---------+--------+---------------+
+4 rows in set (0.06 sec)
+
+
+4. DISPLAY EMPLOYEES WHOSE SALARY IS GREATER THAN THE LEAST SALARY IN DEP= 101
+
+ SELECT * FROM EMPLOYEES WHERE SALARY > (SELECT MIN(SALARY) FROM EMPLOYEES WHERE DEPARTMENT_ID = 101);
++--------+--------+--------+---------------+
+| EMP_ID | ENAME  | SALARY | DEPARTMENT_ID |
++--------+--------+--------+---------------+
+|      1 | Amar   |  50000 |           101 |
+|      2 | Joe    |  60000 |           102 |
+|      4 | Diana  |  70000 |           103 |
+|      5 | Edward |  45000 |           102 |
+|      6 | Seetha |  50000 |           104 |
+|      8 | Hannah |  80000 |           103 |
++--------+--------+--------+---------------+
+6 rows in set (0.00 sec)
+
+
+5. DISPLAY THE EMP WHOSE SALARY IS LESS THAN THE LEAST SALARY IN DEP= 102
+
+SELECT * FROM EMPLOYEES WHERE SALARY < (SELECT MIN(SALARY) FROM EMPLOYEES WHERE DEPARTMENT_ID = 102);
++--------+---------+--------+---------------+
+| EMP_ID | ENAME   | SALARY | DEPARTMENT_ID |
++--------+---------+--------+---------------+
+|      3 | Charlie |  40000 |           101 |
+|      7 | George  |  40000 |           101 |
+|      9 | Ian     |  35000 |           104 |
++--------+---------+--------+---------------+
+3 rows in set (0.00 sec)
+
+
+SUBQUERY IN FROM CLAUSE:
+
+DISPLAY AVG SALARY FOR DEPARTMENTS WHOSE AVG SALARY IS GREATER THAN 50000;
+SELECT DEPARTMENT_ID, AVG_SAL FROM (SELECT DEPARTMENT_ID, AVG(SALARY) AS AVG_SAL FROM EMPLOYEES GROUP BY DEPARTMENT_ID) AS DEP_SAL WHERE AVG_SAL > 50000;
++---------------+------------+
+| DEPARTMENT_ID | AVG_SAL    |
++---------------+------------+
+|           102 | 52500.0000 |
+|           103 | 75000.0000 |
++---------------+------------+
+2 rows in set (0.06 sec)
+
+
+DISPLAY DEPARTMENT NAMES OF AVG_SAL
+ SELECT DEPARTMENT_NAME, AVG_DEP.AVG_SAL FROM (SELECT DEPARTMENT_ID, AVG(SALARY) AS AVG_SAL FROM EMPLOYEES GROUP BY DEPARTMENT_ID) AS AVG_DEP JOIN DEPARTMENTS D ON AVG_DEP.DEPARTMENT_ID = D.DEPARTMENT_ID;
++-----------------+------------+
+| DEPARTMENT_NAME | AVG_SAL    |
++-----------------+------------+
+| HR              | 43333.3333 |
+| IT              | 52500.0000 |
+| Finance         | 75000.0000 |
+| Marketing       | 42500.0000 |
++-----------------+------------+
+4 rows in set (0.00 sec)
+
+
+ANY OPERATOR:
+
+RETURNS A BOOLEAN VALUE OF A RESULT
+RETURNS TRUE IF ANY OF THE SUBQUERY VALUES MEET THE CONDITIONS. ANY MEANS THAT THE CONDITION WILL BE TRUE IF THE OPERATION IS TRUE FOR ANY VALUES IN THE RANGE
+
+SELECT ENAME, DEPARTMENT_ID FROM EMPLOYEES WHERE DEPARTMENT_ID = ANY(SELECT DEPARTMENT_ID FROM DEPARTMENTS WHERE DEPARTMENT_ID = 101);
++---------+---------------+
+| ENAME   | DEPARTMENT_ID |
++---------+---------------+
+| Amar    |           101 |
+| Charlie |           101 |
+| George  |           101 |
++---------+---------------+
+3 rows in set (0.00 sec)
+
+
+ALL OPERATOR:
+
+
+
+
+
+
+
+
+
+
