@@ -1,0 +1,35 @@
+Datatypes in MySQL:
+
+
+List of Data Types in MySQL (Built-In)
+MySQL supports the following major categories of data types:
+
+1. Numeric Types
+Type	Description
+TINYINT	Very small integer
+SMALLINT	Small integer
+MEDIUMINT	Medium-sized integer
+INT	Standard integer
+BIGINT	Large integer
+DECIMAL	Fixed-point
+FLOAT	Floating-point
+DOUBLE	Double-precision floating point
+BIT	Bit-field type
+BOOLEAN	Alias for TINYINT(1)
+
+2. String (Character) Types
+Type	Description
+CHAR(n)	Fixed-length string
+VARCHAR(n)	Variable-length string
+TEXT	Large string (various sizes)
+BLOB	Binary large object
+ENUM	Predefined list of values
+SET	Multiple values from a list
+
+3. Date and Time Types
+Type	Description
+DATE	YYYY-MM-DD
+DATETIME	YYYY-MM-DD HH:MM:SS
+TIMESTAMP	Auto-updated time
+TIME	HH:MM:SS
+YEAR	4-digit year
