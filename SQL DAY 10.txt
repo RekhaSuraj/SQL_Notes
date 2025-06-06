@@ -1,0 +1,323 @@
+ANY OPERATOR:
+
+Get employees who earn more than any employee in department 101:
+DISPLAY all employees whose salary is greater than at least one of the values IN DEP 101.
+
+SELECT * FROM EMPLOYEES WHERE SALARY > ANY(SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 101);
++--------+--------+--------+---------------+
+| EMP_ID | ENAME  | SALARY | DEPARTMENT_ID |
++--------+--------+--------+---------------+
+|      1 | Amar   |  49000 |           101 |
+|      2 | Joe    |  60000 |           102 |
+|      4 | Diana  |  70000 |           103 |
+|      5 | Edward |  45000 |           102 |
+|      6 | Seetha |  50000 |           104 |
+|      8 | Hannah |  80000 |           103 |
++--------+--------+--------+---------------+
+6 rows in set (0.09 sec)
+
+
+Evaluate SALARY > ANY(49000, 40000, 40000)
+That is, salary > 40000
+
+
+ALL OPERATOR:
+
+Get employees who earn more than all employees in department 101:
+
+This returns employees whose salary is greater than the maximum salary in dept 101, which is 49000.
+
+ SELECT * FROM EMPLOYEES WHERE SALARY > ALL(SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = 101);
++--------+--------+--------+---------------+
+| EMP_ID | ENAME  | SALARY | DEPARTMENT_ID |
++--------+--------+--------+---------------+
+|      2 | Joe    |  60000 |           102 |
+|      4 | Diana  |  70000 |           103 |
+|      6 | Seetha |  50000 |           104 |
+|      8 | Hannah |  80000 |           103 |
++--------+--------+--------+---------------+
+
+
+Operator	Means								Example Result
+ANY		Greater than at least one value					45000, 60000
+ALL		Greater than all(means greater than the max) values		60000, 70000,50000,80000
+
+==========================================================================================================================================
+
+TCL AND DCL
+
+TCL – Transaction Control Language
+TCL commands control transactions, i.e., a group of SQL operations that should either all happen or none at all.
+
+Common TCL Commands:
+Command	Description
+BEGIN / START TRANSACTION	Begins a transaction.
+COMMIT				Saves all changes made in the current transaction.
+ROLLBACK			Cancels all changes made in the current transaction.
+SAVEPOINT			Sets a point within a transaction to roll back to.
+ROLLBACK TO SAVEPOINT		Rolls back to the specified savepoint.
+
+
+
+START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET SALARY = SALARY + 1000 WHERE EMP_ID = 1;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+---------+--------+---------------+
+| EMP_ID | ENAME   | SALARY | DEPARTMENT_ID |
++--------+---------+--------+---------------+
+|      1 | Amar    |  50000 |           101 |
+|      2 | Joe     |  60000 |           102 |
+|      3 | Charlie |  40000 |           101 |
+|      4 | Diana   |  70000 |           103 |
+|      5 | Edward  |  45000 |           102 |
+|      6 | Seetha  |  50000 |           104 |
+|      7 | George  |  40000 |           101 |
+|      8 | Hannah  |  80000 |           103 |
+|      9 | Ian     |  35000 |           104 |
++--------+---------+--------+---------------+
+9 rows in set (0.00 sec)
+
+TO CANCEL THE CHANGES, ROLLBACK:
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+---------+--------+---------------+
+| EMP_ID | ENAME   | SALARY | DEPARTMENT_ID |
++--------+---------+--------+---------------+
+|      1 | Amar    |  49000 |           101 |
+|      2 | Joe     |  60000 |           102 |
+|      3 | Charlie |  40000 |           101 |
+|      4 | Diana   |  70000 |           103 |
+|      5 | Edward  |  45000 |           102 |
+|      6 | Seetha  |  50000 |           104 |
+|      7 | George  |  40000 |           101 |
+|      8 | Hannah  |  80000 |           103 |
+|      9 | Ian     |  35000 |           104 |
++--------+---------+--------+---------------+
+9 rows in set (0.00 sec)
+
+
+TO SAVE CHANGES PERMANENTLY:
+ START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET SALARY = SALARY + 1000 WHERE EMP_ID = 1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+---------+--------+---------------+
+| EMP_ID | ENAME   | SALARY | DEPARTMENT_ID |
++--------+---------+--------+---------------+
+|      1 | Amar    |  50000 |           101 |
+|      2 | Joe     |  60000 |           102 |
+|      3 | Charlie |  40000 |           101 |
+|      4 | Diana   |  70000 |           103 |
+|      5 | Edward  |  45000 |           102 |
+|      6 | Seetha  |  50000 |           104 |
+|      7 | George  |  40000 |           101 |
+|      8 | Hannah  |  80000 |           103 |
+|      9 | Ian     |  35000 |           104 |
++--------+---------+--------+---------------+
+9 rows in set (0.00 sec)
+
+USING SAVEPOINT:
+
+START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET SALARY = SALARY - 1000 WHERE EMP_ID = 4;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SAVEPOINT BEFORE_ADD;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> UPDATE EMPLOYEES SET SALARY = SALARY + 1000 WHERE EMP_ID = 1;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+---------+--------+---------------+
+| EMP_ID | ENAME   | SALARY | DEPARTMENT_ID |
++--------+---------+--------+---------------+
+|      1 | Amar    |  51000 |           101 |
+|      2 | Joe     |  60000 |           102 |
+|      3 | Charlie |  40000 |           101 |
+|      4 | Diana   |  69000 |           103 |
+|      5 | Edward  |  45000 |           102 |
+|      6 | Seetha  |  50000 |           104 |
+|      7 | George  |  40000 |           101 |
+|      8 | Hannah  |  80000 |           103 |
+|      9 | Ian     |  35000 |           104 |
++--------+---------+--------+---------------+
+9 rows in set (0.00 sec)
+
+mysql> ROLLBACK TO BEFORE_ADD;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+---------+--------+---------------+
+| EMP_ID | ENAME   | SALARY | DEPARTMENT_ID |
++--------+---------+--------+---------------+
+|      1 | Amar    |  50000 |           101 |
+|      2 | Joe     |  60000 |           102 |
+|      3 | Charlie |  40000 |           101 |
+|      4 | Diana   |  69000 |           103 |
+|      5 | Edward  |  45000 |           102 |
+|      6 | Seetha  |  50000 |           104 |
+|      7 | George  |  40000 |           101 |
+|      8 | Hannah  |  80000 |           103 |
+|      9 | Ian     |  35000 |           104 |
++--------+---------+--------+---------------+
+9 rows in set (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+---------+--------+---------------+
+| EMP_ID | ENAME   | SALARY | DEPARTMENT_ID |
++--------+---------+--------+---------------+
+|      1 | Amar    |  50000 |           101 |
+|      2 | Joe     |  60000 |           102 |
+|      3 | Charlie |  40000 |           101 |
+|      4 | Diana   |  69000 |           103 |
+|      5 | Edward  |  45000 |           102 |
+|      6 | Seetha  |  50000 |           104 |
+|      7 | George  |  40000 |           101 |
+|      8 | Hannah  |  80000 |           103 |
+|      9 | Ian     |  35000 |           104 |
++--------+---------+--------+---------------+
+9 rows in set (0.00 sec)
+
+DCL (Data Control Language) in MySQL
+DCL is used to control access to data in the database. It includes commands that deal with permissions and access rights to database objects like tables, views, procedures, etc.
+
+
+Common DCL Commands in MySQL
+Command	Description
+GRANT	Gives specific privileges to users or roles.
+REVOKE	Removes specific privileges from users or roles.
+
+LOGIN : ADMIN - ROOT
+SY: CREATE USER 'TESTUSER' IDENTIFIED BY 'ROOT'
+
+CREATE USER 'ANT1'@'%' IDENTIFIED BY 'ROOT';
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> GRANT SELECT ON STUDENT TO ANT1;
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> SHOW GRANTS FOR 'ANT1'@'%';
++-------------------------------------------------+
+| Grants for ANT1@%                               |
++-------------------------------------------------+
+| GRANT USAGE ON *.* TO `ANT1`@`%`                |
+| GRANT SELECT ON `mango`.`student` TO `ANT1`@`%` |
++-------------------------------------------------+
+2 rows in set (0.00 sec)
+
+NOW LOGIN BY USER ANT1: (NEW COMMAND WINDOW CAN BE OPENED)
+mysql -u ANT1 -p -h 127.0.0.1
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 38
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE MANGO;
+Database changed
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_mango |
++-----------------+
+| student         |
++-----------------+
+1 row in set (0.14 sec)
+
+mysql> SELECT * FROM STUDENT;
++------+---------+----------+------+------------------+---------------+
+| Slno | Fname   | mobileno | Age  | Location         | Email         |
++------+---------+----------+------+------------------+---------------+
+|    2 | Vanaja  |     NULL |   47 | Bangalore - BSK3 | NULL          |
+|    1 | Amar    |     NULL |   30 | Jaynagar         | NULL          |
+|    3 | Rama    |     NULL |   40 | BTM              | NULL          |
+|    4 | Krishna |     NULL |   35 | JPNagar          | NULL          |
+|    5 | SEETHA  | 78978908 |   25 | DELHI            | ABC@GMAIL.COM |
++------+---------+----------+------+------------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE STUDENT SET AGE = 45 WHERE SLNO = 2;
+ERROR 1142 (42000): UPDATE command denied to user 'ANT1'@'localhost' for table 'student'
+
+DELETE FROM STUDENT WHERE SLNO = 5;
+ERROR 1142 (42000): DELETE command denied to user 'ANT1'@'localhost' for table 'student'
+
+TO CHECK USERS:
+ SELECT USER, HOST FROM MYSQL.USER;
++------------------+-----------+
+| USER             | HOST      |
++------------------+-----------+
+| ANT              | %         |
+| ANT1             | %         |
+| mysql.infoschema | localhost |
+| mysql.session    | localhost |
+| mysql.sys        | localhost |
+| root             | localhost |
++------------------+-----------+
+6 rows in set (0.00 sec)
+
+NOW TO GRANT THE PERMISSION FOR UPDATE: ROOT LOGIN
+GRANT UPDATE ON STUDENT TO ANT1;
+Query OK, 0 rows affected (0.14 sec)
+
+TO CHECK, GOT TO ANT1 LOGIN:
+ UPDATE STUDENT SET AGE = 45 WHERE SLNO = 2;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM STUDENT;
++------+---------+----------+------+------------------+---------------+
+| Slno | Fname   | mobileno | Age  | Location         | Email         |
++------+---------+----------+------+------------------+---------------+
+|    2 | Vanaja  |     NULL |   45 | Bangalore - BSK3 | NULL          |
+|    1 | Amar    |     NULL |   30 | Jaynagar         | NULL          |
+|    3 | Rama    |     NULL |   40 | BTM              | NULL          |
+|    4 | Krishna |     NULL |   35 | JPNagar          | NULL          |
+|    5 | SEETHA  | 78978908 |   25 | DELHI            | ABC@GMAIL.COM |
++------+---------+----------+------+------------------+---------------+
+5 rows in set (0.00 sec)
+
+
+REVOKE: FROM ROOT LOGIN - TO REMOVE GRANT
+ REVOKE UPDATE ON STUDENT FROM ANT1;
+Query OK, 0 rows affected (0.10 sec)
+
+TO CHECK: FROM ANT1 LOGIN
+
+UPDATE STUDENT SET AGE = 40 WHERE SLNO = 2;
+ERROR 1142 (42000): UPDATE command denied to user 'ANT1'@'localhost' for table 'student'
+
+TO DELETE/DROP USER:
+DROP USER 'ANT1'@'%';
+Query OK, 0 rows affected (0.40 sec)
+
+
+
